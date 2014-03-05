@@ -1,0 +1,361 @@
+/*!
+Video.js Default Styles (http://videojs.com)
+Version GENERATED_AT_BUILD
+Create your own skin at http://designer.videojs.com
+*/
+
+// To customize the player skin, change the values of the variables or edit the
+// CSS below.
+// (This file uses LESS. Learn more at http://lesscss.org/)
+
+// The base font size controls the size of everything, not just text. All
+// diminensions use em-based sizes so that the scale along with the font size.
+// Try increasing it to 20px and see what happens.
+@base-font-size: 10px;
+@touch-device-font-size: 15px;
+
+// The main font color controls the color of the text and the icons (font icons)
+@main-font-color: #CCCCCC; // e.g. rgb(255, 255, 255) or #ffffff
+
+// The default color of control backgrounds is mostly black but with a little
+// bit of blue so it can still be seen on all black video frames, which are
+// common.
+@control-bg-color: #07141E; // e.g. rgb(255, 255, 255) or #ffffff
+@control-bg-alpha: 0.7; // 1.0 = 100% opacity, 0.0 = 0% opacity
+
+// The slider bar color is used for the progress bar and the volume bar
+@slider-bar-color: #66A8CC; // e.g. rgb(255, 255, 255) or #ffffff
+// The background of the progress bar and volume bar have a lined pattern that
+// is created from a base64 encoded image. You can generate your own pattern at
+// http://www.patternify.com/ then replace the value in the quotes with your own
+@slider-bar-pattern: ~'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAAP0lEQVQIHWWMAQoAIAgDR/QJ/Ub//04+w7ZICBwcOg5FZi5iBB82AGzixEglJrd4TVK5XUJpskSTEvpdFzX9AB2pGziSQcvAAAAAAElFTkSuQmCC';
+// The color of the slider background
+@slider-background-color: #333333;
+@slider-background-alpha: 0.9; // 1.0 = 100% opacity, 0.0 = 0% opacity
+
+// The "Big Play Button" is the play button that shows before the video plays.
+// To center it set the align values to center and middle. The typical location
+// of the button is the center, but there is trend towards moving it to a corner
+// where it gets out of the way of valuable content in the poster image.
+@big-play-align: left; // left, center, or right
+@big-play-vertical-align: top; // top, middle, or bottom
+// The button colors match the control colors by default but you can customize
+// them by replace the variables (@control-bg-color) with your own color values.
+@big-play-bg-color: @control-bg-color;
+@big-play-bg-alpha: @control-bg-alpha;
+// The font size is what makes the big play button, big. All width/height values
+// use ems, which are a multiple of the font size.
+// If the @base-font-size is 10px, then 3em equals 30px.
+@big-play-font-size: 3em;
+// Now that font size is set, the following em values will be a multiple of the
+// new font size. If @big-play-font-size is 3em (30px), then setting the any of
+// the following values to 2em would equal 60px. 2 * font-size
+@big-play-margin: 0.5em;
+@big-play-width: 4em;
+@big-play-height: 2.6em;
+@big-play-border-radius: 0.8em;
+@big-play-border-width: 0.1em;
+@big-play-border-color: #3b4249;
+
+
+/* SKIN
+================================================================================
+The main class name for all skin-specific styles. To make your own skin,
+replace all occurances of 'vjs-default-skin' with a new name. Then add your new
+skin name to your video tag instead of the default skin.
+e.g. <video class="video-js my-skin-name">
+*/
+.ottawa-vjs-skin {
+  width: 100%;
+  height: auto;
+  color: @main-font-color;
+}
+
+/* Custom Icon Font
+--------------------------------------------------------------------------------
+The control icons are from a custom font. Each icon corresponds to a character
+(e.g. "\e001"). Font icons allow for easy scaling and coloring of icons.
+*/
+
+// Icon font character values
+@play-icon: "\e001";
+@pause-icon: "\e002";
+@volume-muted-icon: "\e003";
+@volume-low-icon: "\e004";
+@volume-mid-icon: "\e005";
+@volume-high-icon: "\e006";
+@fullscreen-enter-icon: "\e000";
+@fullscreen-exit-icon: "\e00b";
+@square-icon: "\e009";
+@spinner-icon: "\e00a";
+@spinner2-icon: "\e00d";
+@spinner3-icon: "\e01e";
+@spinner4-icon: "\e01f";
+@subtitles-icon: "\e00c";
+@captions-icon: "\e008";
+@share-icon: "\e00e";
+
+.ottawa-vjs-skin .vjs-poster {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+}
+
+.ottawa-vjs-skin .vjs-poster img {
+  border: none;
+}
+
+/* Big Play Button (play button at start)
+--------------------------------------------------------------------------------
+Positioning of the play button in the center or other corners can be done more
+easily in the skin designer. http://designer.videojs.com/
+*/
+.ottawa-vjs-skin .vjs-big-play-button {
+  // Calculate total width/height so we're able to center the button
+  @total-width: @big-play-width + (@big-play-border-width * 2);
+  @total-height: @big-play-height + (@big-play-border-width * 2);
+  // Position the button using the absolute-align mixin (bottom of page)
+  .absolute-align(@big-play-align, @big-play-margin, @total-width);
+  .absolute-align(@big-play-vertical-align, @big-play-margin, @total-height);
+
+  font-size: @big-play-font-size;
+  display: block;
+  z-index: 6;
+  position: absolute;
+  width: @big-play-width;
+  height: @big-play-height;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  opacity: 1;
+
+  /* Need a slightly gray bg so it can be seen on black backgrounds *///
+  .background-color-with-alpha(@big-play-bg-color, @big-play-bg-alpha);
+
+  border: @big-play-border-width solid @big-play-border-color;
+
+  .border-radius(@big-play-border-radius);
+  .box-shadow(0px 0px 1em rgba(255, 255, 255, 0.25));
+  .transition(all 0.4s);
+}
+
+/* Optionally center */
+.ottawa-vjs-skin.vjs-big-play-centered .vjs-big-play-button {
+  @total-width: @big-play-width + (@big-play-border-width * 2);
+  @total-height: @big-play-height + (@big-play-border-width * 2);
+
+  .absolute-align(center, @big-play-margin, @total-width);
+  .absolute-align(middle, @big-play-margin, @total-height);
+}
+
+/* Hide if controls are disabled */
+.ottawa-vjs-skin.vjs-controls-disabled .vjs-big-play-button {
+  display: none;
+}
+/* Hide when video starts playing */
+.ottawa-vjs-skin.vjs-has-started .vjs-big-play-button {
+  display: none;
+}
+/* Hide on mobile devices. Remove when we stop using native controls
+    by default on mobile  */
+.ottawa-vjs-skin.vjs-using-native-controls .vjs-big-play-button {
+  display: none;
+}
+
+.ottawa-vjs-skin:hover .vjs-big-play-button,
+.ottawa-vjs-skin .vjs-big-play-button:focus {
+  outline: 0;
+  border-color: #fff;
+  /* IE8 needs a non-glow hover state *///
+  background-color: rgb(80, 80, 80);
+  background-color: rgba(50, 50, 50, 0.75);
+
+  .box-shadow(0 0 3em #fff);
+  .transition(all 0s);
+}
+
+.ottawa-vjs-skin .vjs-big-play-button:before {
+  content: @play-icon;
+  font-family: VideoJS;
+  /* In order to center the play icon vertically we need to set the line height
+     to the same as the button height */
+  line-height: @big-play-height;
+  text-shadow: 0.05em 0.05em 0.1em #000;
+  text-align: center /* Needed for IE8 */;
+
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Playback technology elements expand to the width/height of the containing div
+    <video> or <object> */
+.ottawa-vjs-skin .vjs-tech {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+  z-index: 4;
+}
+
+.ottawa-vjs-skin object.vjs-tech {
+  min-height: 360px;
+}
+
+// MIXINS
+// =============================================================================
+// Mixins are a LESS feature and are used to add vendor prefixes to CSS rules
+// when needed.
+
+// https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow
+.box-shadow (@string: 0 0 1em rgba(0, 0, 0, 0.25)) {
+  /* box-shadow *///
+  -webkit-box-shadow: @string;
+     -moz-box-shadow: @string;
+          box-shadow: @string;
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius
+.border-radius (@string: 5px) {
+  /* border-radius *///
+  -webkit-border-radius: @string;
+     -moz-border-radius: @string;
+          border-radius: @string;
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+.transition (@string: all 1s linear) {
+  /* transition *///
+  -webkit-transition: @string;
+     -moz-transition: @string;
+       -o-transition: @string;
+          transition: @string;
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+.transition-delay (@string: 1s) {
+  /* transition-delay *///
+  -webkit-transition-delay: @string;
+     -moz-transition-delay: @string;
+       -o-transition-delay: @string;
+          transition-delay: @string;
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/CSS/animation
+.animation (@string: spin 1s infinite linear) {
+  /* animation *///
+  -webkit-animation: @string;
+     -moz-animation: @string;
+       -o-animation: @string;
+          animation: @string;
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/CSS/transform
+.transform (@string: rotate(-45deg)) {
+  /* transform *///
+  -webkit-transform: @string;
+     -moz-transform: @string;
+      -ms-transform: @string;
+       -o-transform: @string;
+          transform: @string;
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/CSS/user-select
+.user-select (@string: none) {
+  /* user-select *///
+  -webkit-user-select: @string;
+     -moz-user-select: @string;
+      -ms-user-select: @string;
+          user-select: @string;
+}
+
+// Hide something visually but keep available for screen readers.
+// http://h5bp.com/v
+.hide-visually () {
+  /* hide-visually *///
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position:
+  absolute;
+  width: 1px;
+}
+
+// Align an object with absolute positioning
+// Used to align the Big Play Button in the corners or center
+.absolute-align (@align, @margin, @length) when (@align = top) {
+  top: @margin;
+}
+.absolute-align (@align, @margin, @length) when (@align = bottom) {
+  bottom: @margin;
+}
+.absolute-align (@align, @margin, @length) when (@align = left) {
+  left: @margin;
+}
+.absolute-align (@align, @margin, @length) when (@align = right) {
+  right: @margin;
+}
+.absolute-align (@align, @margin, @length) when (@align = center) {
+  /* Center it horizontally *///
+  left: 50%;
+  margin-left: -(@length / 2);
+}
+.absolute-align (@align, @margin, @length) when (@align = middle) {
+  /* Center it vertically *///
+  top: 50%;
+  margin-top: -(@length / 2);
+}
+
+// http://stackoverflow.com/questions/637921/opacity-of-background-but-not-the-text
+.background-color-with-alpha (@color, @alpha) {
+  @rgba: rgba(red(@color), green(@color), blue(@color), @alpha);
+  /* background-color-with-alpha *///
+  background-color: @color;
+  background-color: @rgba;
+  // No longer using MS filters because they break border radius in IE9
+  // @argb: argb(@rgba);
+  // filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorstr=@{argb}, endColorstr=@{argb})";
+  // -ms-filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorstr=@{argb}, endColorstr=@{argb})";
+}
+
+.border-color-with-alpha (@color, @alpha) {
+  @rgba: rgba(red(@color), green(@color), blue(@color), @alpha);
+  /* border-color-with-alpha *///
+  border-color: @color;
+  border-color: @rgba;
+}
+
+// NOTES ON LESS (tracking learnings so we don't forget)
+// =============================================================================
+// * We want this file to continue to be accessible by people who don't know
+//   LESS but know CSS. This means finding the balance between using the most
+//   valuable LESS features (e.g. variables) and keeping it looking like CSS.
+//   So it's best to avoid advanced LESS features like conditional statements.
+//   (we're using one for the big play button position because that's a hot
+//   topic)
+//
+// * We care about the readability of the CSS output of LESS, which means we
+//   have to be careful about what features of LESS we use. (if you're building
+//   your own skin this may not apply)
+//     1. Comments inside of rules (strangely) have an extra line added after
+//        them in the CSS output. To avoid this we can add a LESS comment after
+//        the CSS comment.
+//          /* comment *///
+//
+//     2. In a rule with nested rules, any comments outside of a rule are moved
+//        to the top of the parent rule. i.e. it might look like:
+//          /* title of rule 1 */
+//          /* title of rule 2 */
+//          .rule1 {}
+//          .rule2 {}
+//        This is why we aren't using nested rules inside of the
+//        vjs-default-skin class.
+
+/* -----------------------------------------------------------------------------
+The original source of this file lives at
+https://github.com/videojs/video.js/blob/master/src/css/video-js.less */

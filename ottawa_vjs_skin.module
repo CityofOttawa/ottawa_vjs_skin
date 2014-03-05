@@ -1,0 +1,46 @@
+<?php
+/**
+ * @file
+ * Implements the Libraries API hooks to make sure that the Ottawa Video JS Skin is loaded.
+ */
+
+/**
+ * Implements hook_libraries_info().
+ */
+function ottawa_vjs_skin_libraries_info() {
+  $libraries['ottawa-vjs-skin'] = array(
+    'name' => 'City of Ottawa Video JS Skin',
+    'files' => array(
+      'css' => array(
+        'css/ottawa-vjs-skin.css',
+      ),
+    ),
+  );
+  return $libraries;
+}
+
+/**
+ * Implments hook_library().
+ */
+function ottawa_vjs_skin_library() {
+  $library_path = drupal_get_path('module', 'ottawa_vjs_skin');
+
+  $libraries['ottawa-vjs-skin'] = array(
+    'title' => 'City of Ottawa Video JS Skin',
+    'css' => array(
+      $library_path . '/css/ottawa-vjs-skin.css' => array(
+        'type' => 'file',
+        'media' => 'screen',
+        'weight' => 50,
+      ),
+    ),
+  );
+  return $libraries;
+}
+
+/**
+ * Implements hook_init().
+ */
+function ottawa_vjs_skin_init() {
+  drupal_add_library('ottawa_vjs_skin', 'ottawa-vjs-skin', TRUE);
+}

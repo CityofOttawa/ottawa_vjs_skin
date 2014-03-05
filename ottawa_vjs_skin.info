@@ -1,0 +1,6 @@
+name = City of Ottawa Video JS Skin
+description = Provides a responsive skin for the Video JS player.
+core = 7.x
+package = City of Ottawa
+dependencies[] = libraries
+dependencies[] = videojs_inline
