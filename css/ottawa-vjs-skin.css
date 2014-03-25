@@ -133,3 +133,8 @@ easily in the skin designer. http://designer.videojs.com/
 /* -----------------------------------------------------------------------------
 The original source of this file lives at
 https://github.com/videojs/video.js/blob/master/src/css/video-js.less */
+
+.ottawa-vjs-skin .vjs-control-bar {
+  z-index: 5;
+}
+
